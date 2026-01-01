@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sold Products History</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <h2 class="title">Sold Products History</h2>
+
+  <div class="top-bar">
+    <button onclick="goBack()">Back to Stock Entry</button>
+
+    <div>
+      <label><b>Select Date:</b></label>
+      <input type="date" id="historyDate">
+    </div>
+  </div>
+
+  <table class="history-table">
+    <thead>
+      <tr>
+        <th>Cent</th>
+        <th>Sold Products</th>
+        <th>Sold Weight</th>
+      </tr>
+    </thead>
+
+    <tbody id="historyBody">
+      <!-- rows auto -->
+    </tbody>
+  </table>
+
+</div>
+
+<script>
+const body = document.getElementById("historyBody");
+
+// create 20 rows default
+for (let i = 1; i <= 20; i++) {
+  body.innerHTML += `
+    <tr>
+      <td>${i} Cent</td>
+      <td id="p${i}">0</td>
+      <td id="w${i}">0.000</td>
+    </tr>
+  `;
+}
+
+document.getElementById("historyDate").addEventListener("change", loadHistory);
+
+function loadHistory() {
+  const date = document.getElementById("historyDate").value;
+  let history = JSON.parse(localStorage.getItem("soldHistory")) || {};
+
+  // reset to zero
+  for (let i = 1; i <= 20; i++) {
+    document.getElementById("p"+i).innerText = 0;
+    document.getElementById("w"+i).innerText = "0.000";
+  }
+
+  if (!history[date]) return;
+
+  history[date].forEach(item => {
+    document.getElementById("p"+item.cent).innerText = item.pieces;
+    document.getElementById("w"+item.cent).innerText =
+      Number(item.weight).toFixed(3);
+  });
+}
+
+function goBack() {
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
