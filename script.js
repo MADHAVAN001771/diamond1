@@ -3,7 +3,11 @@ const body = document.getElementById("inventoryBody");
 const labels = [
   ...Array.from({ length: 20 }, (_, i) => `${i + 1} Cent`),
   "22 Cent", "25 Cent", "28 Cent", "30 Cent",
-  ...Array.from({ length: 5 }, (_, i) => `Item ${i + 1}`)
+  "Screw 1",
+  "Screw 2",
+  "Item 3",
+  "Item 4",
+  "Item 5"
 ];
 
 // CREATE ROWS
@@ -36,7 +40,7 @@ window.onload = () => {
   calc();
 };
 
-// AUTO CALCULATION + LOW STOCK INDICATOR
+// AUTO CALCULATION + LOW STOCK ALERT
 function calc() {
   let tOP=0, tOW=0, tSP=0, tSW=0, tRP=0, tRW=0;
 
@@ -52,9 +56,9 @@ function calc() {
     row.querySelector(".rP").value = rP;
     row.querySelector(".rW").value = rW.toFixed(3);
 
-    // 🔴 LOW STOCK INDICATOR
-    const arrow = row.querySelector(".low-stock");
-    arrow.style.display = rP <= 10 ? "inline" : "none";
+    // 🔴 LOW STOCK INDICATOR (≤10)
+    row.querySelector(".low-stock").style.display =
+      rP <= 10 ? "inline" : "none";
 
     tOP+=opP; tOW+=opW;
     tSP+=sP;  tSW+=sW;
