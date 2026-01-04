@@ -38,20 +38,23 @@ th {
 
 td {
   background: #fff8d6;
-  text-align: center;
   padding: 10px;
+  text-align: center;
 }
 
 input {
-  width: 80px;
-  padding: 4px;
+  width: 70px;
+}
+
+.low-stock {
+  display: none;
+  color: red;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 5px;
 }
 
 .total td {
   background: gold;
   font-weight: bold;
-}
-
-.history-table td, .history-table th {
-  border-radius: 8px;
 }

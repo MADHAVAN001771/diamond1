@@ -5,42 +5,35 @@
 <title>Sold History</title>
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+
 <div class="container">
+  <h2>📅 Sold History</h2>
 
-<h2>📅 View Sold History</h2>
+  <label>Select Date:</label>
+  <input type="date" id="datePick">
 
-<label><b>Select Date:</b></label>
-<input type="date" id="datePick">
-
-<table class="history-table">
-<thead>
-<tr>
-<th>Cent / Item</th>
-<th>Sold Pieces</th>
-<th>Sold Weight</th>
-</tr>
-</thead>
-<tbody id="list"></tbody>
-</table>
-
+  <table>
+    <thead>
+      <tr>
+        <th>Cent / Item</th>
+        <th>Sold Products</th>
+        <th>Sold Weight</th>
+      </tr>
+    </thead>
+    <tbody id="list"></tbody>
+  </table>
 </div>
 
 <script>
 const labels = [
   ...Array.from({ length: 20 }, (_, i) => `${i + 1} Cent`),
-  "22 Cent",
-  "25 Cent",
-  "28 Cent",
-  "30 Cent",
+  "22 Cent", "25 Cent", "28 Cent", "30 Cent",
   ...Array.from({ length: 5 }, (_, i) => `Item ${i + 1}`)
 ];
 
-const ROWS = labels.length;
 const list = document.getElementById("list");
 
-// CREATE ROWS
 labels.forEach((label, i) => {
   list.innerHTML += `
   <tr>
@@ -50,25 +43,21 @@ labels.forEach((label, i) => {
   </tr>`;
 });
 
-// LOAD SOLD DATA BY DATE
 document.getElementById("datePick").addEventListener("change", function () {
   const history = JSON.parse(localStorage.getItem("soldHistory")) || {};
   const date = this.value;
 
-  for (let i = 0; i < ROWS; i++) {
-    document.getElementById("p" + i).innerText = 0;
-    document.getElementById("w" + i).innerText = "0.000";
-  }
+  labels.forEach((_, i) => {
+    document.getElementById("p"+i).innerText = 0;
+    document.getElementById("w"+i).innerText = "0.000";
+  });
 
-  if (!history[date]) {
-    alert("No sold data for this date");
-    return;
-  }
+  if (!history[date]) return;
 
-  history[date].forEach((item, i) => {
-    document.getElementById("p" + i).innerText = item.pieces;
-    document.getElementById("w" + i).innerText =
-      Number(item.weight).toFixed(3);
+  history[date].forEach((x, i) => {
+    document.getElementById("p"+i).innerText = x.pieces;
+    document.getElementById("w"+i).innerText =
+      Number(x.weight).toFixed(3);
   });
 });
 </script>
