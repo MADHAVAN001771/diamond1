@@ -2,72 +2,72 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>View Sold History</title>
+<title>Sold History</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
 <div class="container">
-  <h2 class="title">📅 Sold History</h2>
 
-  <!-- DATE SELECT -->
-  <div class="top-bar">
-    <label><b>Select Date:</b></label>
-    <input type="date" id="historyDate">
-  </div>
+<h2>📅 View Sold History</h2>
 
-  <!-- SOLD TABLE -->
-  <table class="history-table">
-    <thead>
-      <tr>
-        <th>Cent / Item</th>
-        <th>Sold Pieces</th>
-        <th>Sold Weight</th>
-      </tr>
-    </thead>
-    <tbody id="historyBody"></tbody>
-  </table>
+<label><b>Select Date:</b></label>
+<input type="date" id="datePick">
+
+<table class="history-table">
+<thead>
+<tr>
+<th>Cent / Item</th>
+<th>Sold Pieces</th>
+<th>Sold Weight</th>
+</tr>
+</thead>
+<tbody id="list"></tbody>
+</table>
+
 </div>
 
 <script>
-const body = document.getElementById("historyBody");
-const ROWS = 25;
+const labels = [
+  ...Array.from({ length: 20 }, (_, i) => `${i + 1} Cent`),
+  "22 Cent",
+  "25 Cent",
+  "28 Cent",
+  "30 Cent",
+  ...Array.from({ length: 5 }, (_, i) => `Item ${i + 1}`)
+];
 
-// CREATE ALL PRODUCTS ROWS (20 CENTS + 5 ITEMS)
-for (let i = 1; i <= ROWS; i++) {
-  let label = i <= 20 ? `${i} Cent` : `Item ${i - 20}`;
-  body.innerHTML += `
-    <tr>
-      <td>${label}</td>
-      <td id="p${i}">0</td>
-      <td id="w${i}">0.000</td>
-    </tr>
-  `;
-}
+const ROWS = labels.length;
+const list = document.getElementById("list");
 
-// WHEN DATE IS SELECTED
-document.getElementById("historyDate").addEventListener("change", function () {
+// CREATE ROWS
+labels.forEach((label, i) => {
+  list.innerHTML += `
+  <tr>
+    <td>${label}</td>
+    <td id="p${i}">0</td>
+    <td id="w${i}">0.000</td>
+  </tr>`;
+});
 
-  const selectedDate = this.value;
+// LOAD SOLD DATA BY DATE
+document.getElementById("datePick").addEventListener("change", function () {
   const history = JSON.parse(localStorage.getItem("soldHistory")) || {};
+  const date = this.value;
 
-  // RESET TABLE
-  for (let i = 1; i <= ROWS; i++) {
+  for (let i = 0; i < ROWS; i++) {
     document.getElementById("p" + i).innerText = 0;
     document.getElementById("w" + i).innerText = "0.000";
   }
 
-  // IF NO DATA FOR DATE
-  if (!history[selectedDate]) {
+  if (!history[date]) {
     alert("No sold data for this date");
     return;
   }
 
-  // LOAD DATA FOR THAT DATE
-  history[selectedDate].forEach((item, index) => {
-    document.getElementById("p" + (index + 1)).innerText = item.pieces;
-    document.getElementById("w" + (index + 1)).innerText =
+  history[date].forEach((item, i) => {
+    document.getElementById("p" + i).innerText = item.pieces;
+    document.getElementById("w" + i).innerText =
       Number(item.weight).toFixed(3);
   });
 });

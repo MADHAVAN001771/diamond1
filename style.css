@@ -11,7 +11,7 @@ body {
   border-radius: 20px;
 }
 
-h1, .title {
+h1, h2 {
   color: #b8860b;
 }
 
@@ -47,26 +47,11 @@ input {
   padding: 4px;
 }
 
-.remaining-box {
-  display: flex;
-  gap: 5px;
-  justify-content: center;
-}
-
-.remaining-box input {
-  width: 60px;
-  background: #f1f1f1;
-  border: 1px solid #aaa;
-}
-
 .total td {
   background: gold;
   font-weight: bold;
 }
 
-.top-bar {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 15px;
+.history-table td, .history-table th {
+  border-radius: 8px;
 }
