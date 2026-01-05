@@ -2,43 +2,43 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Diamond Nosepin Inventory</title>
+<title>💎 Diamond Nosepin Inventory</title>
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-
 <div class="container">
-  <h1>💎 Diamond Nosepin Inventory</h1>
+<h1>💎 Diamond Nosepin Inventory</h1>
 
-  <button onclick="saveAndViewHistory()">
-    Save & View Sold History
-  </button>
+<button onclick="location.href='sold.html'">📅 Sold History</button>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Cent / Item</th>
-        <th>No. of Products</th>
-        <th>Total Number of Weight</th>
-        <th>Sold Products (Today)</th>
-        <th>Sold Weight (Today)</th>
-        <th>Remaining</th>
-      </tr>
-    </thead>
+<table>
+<thead>
+<tr>
+<th>Cent / Item</th>
+<th>No of Products</th>
+<th>Total Weight</th>
+<th>Sold (Pcs)</th>
+<th>Sold (Wt)</th>
+<th>Remaining</th>
+</tr>
+</thead>
 
-    <tbody id="inventoryBody"></tbody>
+<tbody id="inventoryBody"></tbody>
 
-    <tfoot>
-      <tr class="total">
-        <td>Total</td>
-        <td id="tOP">0</td>
-        <td id="tOW">0.000</td>
-        <td id="tSP">0</td>
-        <td id="tSW">0.000</td>
-        <td id="tR">0 , 0.000</td>
-      </tr>
-    </tfoot>
-  </table>
+<tfoot>
+<tr class="total">
+<td>Total</td>
+<td id="tOP">0</td>
+<td id="tOW">0.000</td>
+<td id="tSP">0</td>
+<td id="tSW">0.000</td>
+<td id="tR">0 , 0.000</td>
+</tr>
+</tfoot>
+</table>
+
+<button onclick="saveData()">💾 Save</button>
 </div>
 
 <script src="script.js"></script>

@@ -2,69 +2,64 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Sold History</title>
+<title>📅 Sold History</title>
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-
 <div class="container">
-  <h2>📅 Sold History</h2>
+<h2>📅 Sold History</h2>
 
-  <label>Select Date:</label>
-  <input type="date" id="datePick">
+<input type="date" id="datePick">
 
-  <table>
-    <thead>
-      <tr>
-        <th>Cent / Item</th>
-        <th>Sold Products</th>
-        <th>Sold Weight</th>
-      </tr>
-    </thead>
-    <tbody id="list"></tbody>
-  </table>
+<table>
+<thead>
+<tr>
+<th>Cent / Item</th>
+<th>Sold Pieces</th>
+<th>Sold Weight</th>
+</tr>
+</thead>
+<tbody id="list"></tbody>
+</table>
+
+<br>
+<button onclick="location.href='index.html'">⬅ Back</button>
 </div>
 
 <script>
-const labels = [
-  ...Array.from({ length: 20 }, (_, i) => `${i + 1} Cent`),
-  "22 Cent", "25 Cent", "28 Cent", "30 Cent",
-  "Screw 1",
-  "Screw 2",
-  "Item 3",
-  "Item 4",
-  "Item 5"
+const labels=[
+  ...Array.from({length:20},(_,i)=>`${i+1} Cent`),
+  "22 Cent","25 Cent","28 Cent","30 Cent",
+  "Screw 1","Screw 2","Item 3","Item 4","Item 5"
 ];
 
-const list = document.getElementById("list");
-
-labels.forEach((label, i) => {
-  list.innerHTML += `
-  <tr>
-    <td>${label}</td>
-    <td id="p${i}">0</td>
-    <td id="w${i}">0.000</td>
-  </tr>`;
+const list=document.getElementById("list");
+labels.forEach((l,i)=>{
+  list.innerHTML+=`
+<tr>
+<td>${l}</td>
+<td id="p${i}">0</td>
+<td id="w${i}">0.000</td>
+</tr>`;
 });
 
-document.getElementById("datePick").addEventListener("change", function () {
-  const history = JSON.parse(localStorage.getItem("soldHistory")) || {};
-  const date = this.value;
+const datePick=document.getElementById("datePick");
+const today=new Date().toISOString().split("T")[0];
+datePick.value=today;
+datePick.max=today;
 
-  labels.forEach((_, i) => {
-    document.getElementById("p"+i).innerText = 0;
-    document.getElementById("w"+i).innerText = "0.000";
+function loadHistory(date){
+  const hist=JSON.parse(localStorage.getItem("soldHistory"))||{};
+  const data=hist[date]||[];
+  data.forEach((x,i)=>{
+    document.getElementById("p"+i).textContent=x.pieces;
+    document.getElementById("w"+i).textContent=Number(x.weight).toFixed(3);
   });
+}
 
-  if (!history[date]) return;
-
-  history[date].forEach((x, i) => {
-    document.getElementById("p"+i).innerText = x.pieces;
-    document.getElementById("w"+i).innerText =
-      Number(x.weight).toFixed(3);
-  });
-});
+loadHistory(today);
+datePick.onchange=()=>loadHistory(datePick.value);
 </script>
-
 </body>
 </html>
