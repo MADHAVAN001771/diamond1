@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<script type="text/javascript" src="https://wappaa.com/webusers/46717-1767629854/push/wappaa-init46717-1767629854.js"></script>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#b8860b">
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -45,3 +47,8 @@
 <script src="script.js"></script>
 </body>
 </html>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
+</script>
